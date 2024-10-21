@@ -34,17 +34,17 @@ can be found in the LICENSE file at https://angular.io/license
 */
 
 export const routes: Routes = [
- {
-        path: '',
-        redirectTo: 'login',
-        pathMatch: 'full',
-    },
+  {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
   {
     path: 'dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
   },
 ];

@@ -32,6 +32,9 @@
               }
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "node_modules/aos/dist/aos.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -96,6 +99,9 @@
               }
             ],
             "styles": [
+              "./node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
+              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
+              "node_modules/aos/dist/aos.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -103,5 +109,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "3c0e169e-64b4-4496-a146-181fb8f3f3ed"
   }
 }
