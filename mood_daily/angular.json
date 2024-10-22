@@ -29,13 +29,25 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "node_modules/aos/dist/aos.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/theme-saga-blue.scss",
+                "bundleName": "saga-blue",
+                "inject": false
+              },
+              {
+                "input": "src/theme-md-dark-indigo.scss",
+                "bundleName": "md-dark-indigo",
+                "inject": false
+              }
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -96,13 +108,25 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
             "styles": [
-              "./node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
-              "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-              "node_modules/aos/dist/aos.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              {
+                "input": "src/theme-saga-blue.scss",
+                "bundleName": "saga-blue",
+                "inject": false
+              },
+              {
+                "input": "src/theme-md-dark-indigo.scss",
+                "bundleName": "md-dark-indigo",
+                "inject": false
+              }
             ],
             "scripts": []
           }

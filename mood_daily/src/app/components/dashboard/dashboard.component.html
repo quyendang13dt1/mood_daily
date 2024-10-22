@@ -1,4 +1,45 @@
-<app-line-chart></app-line-chart>
 
-<!-- <div style="height: 1000px">Test</div> -->
-<!-- <div data-aos="fade-up" data-aos-duration="3000"></div> -->
+<div class="test-aaaa">HELLO</div>
+<p-button label="Saga Blue" (click)="onUpdateTheme('saga-blue')"/>
+<p-button label="Dark Indigo" (click)="onUpdateTheme('md-dark-indigo')"/>
+
+<div class="card flex justify-content-center">
+    <p-button label="Check" icon="pi pi-check"></p-button>
+</div>
+
+<div class="card flex flex-column align-items-center overflow-hidden">
+    <div class="flex flex-column align-items-center gap-2">
+        <span class="text-xl font-medium">Scroll Down</span>
+        <span class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center">
+            <i class="pi pi-arrow-down"></i>
+        </span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="fadein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+        <span class="text-3xl font-bold">fade-in</span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="fadeinleft" leaveClass="fadeoutleft" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+        <span class="text-3xl font-bold">fade-left</span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="fadeinright" leaveClass="fadeoutright" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+        <span class="text-3xl font-bold">fade-right</span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="zoomin" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000">
+        <span class="text-3xl font-bold">zoom</span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="flipleft" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+        <span class="text-3xl font-bold">flip-left</span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="flipup" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+        <span class="text-3xl font-bold">flip-y</span>
+    </div>
+    <div class="h-30rem"></div>
+    <div pAnimateOnScroll enterClass="scalein" leaveClass="fadeout" class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out">
+        <span class="text-3xl font-bold">scalein</span>
+    </div>
+</div>

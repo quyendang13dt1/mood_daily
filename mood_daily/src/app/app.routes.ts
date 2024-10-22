@@ -1,6 +1,8 @@
 // import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 // import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -34,17 +36,16 @@ can be found in the LICENSE file at https://angular.io/license
 */
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full',
-  },
-  {
-    path: 'login',
-    component: LoginComponent,
-  },
+  // { path: '', component:  HomeComponent, },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Works only for root ('/')
+  { path: 'login', component: LoginComponent },
+  // {
+  //   path: 'login',
+  //   component: LoginComponent,
+  // },
   {
     path: 'dashboard',
     component: DashboardComponent,
   },
+  // { path: '**', redirectTo: 'login' }, // Fallback route to handle undefined routes
 ];
