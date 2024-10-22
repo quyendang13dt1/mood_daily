@@ -39,13 +39,44 @@
             "styles": [
               "src/styles.scss",
               {
+                "input": "src/theme-md-dark-indigo.scss",
+                "bundleName": "md-dark-indigo",
+                "inject": false
+              },
+
+              {
                 "input": "src/theme-saga-blue.scss",
                 "bundleName": "saga-blue",
                 "inject": false
               },
               {
-                "input": "src/theme-md-dark-indigo.scss",
-                "bundleName": "md-dark-indigo",
+                "input": "src/theme-saga-green.scss",
+                "bundleName": "saga-green",
+                "inject": false
+              },
+              {
+                "input": "src/theme-saga-orange.scss",
+                "bundleName": "saga-orange",
+                "inject": false
+              },
+              {
+                "input": "src/theme-saga-purple.scss",
+                "bundleName": "saga-purple",
+                "inject": false
+              },
+              {
+                "input": "src/theme-saga-blue.scss",
+                "bundleName": "saga-blue",
+                "inject": false
+              },
+              {
+                "input": "src/theme-lara-dark-teal.scss",
+                "bundleName": "lara-dark-teal",
+                "inject": false
+              },
+              {
+                "input": "src/theme-luna-pink.scss",
+                "bundleName": "luna-pink",
                 "inject": false
               }
             ],
@@ -118,13 +149,44 @@
             "styles": [
               "src/styles.scss",
               {
+                "input": "src/theme-md-dark-indigo.scss",
+                "bundleName": "md-dark-indigo",
+                "inject": false
+              },
+
+              {
                 "input": "src/theme-saga-blue.scss",
                 "bundleName": "saga-blue",
                 "inject": false
               },
               {
-                "input": "src/theme-md-dark-indigo.scss",
-                "bundleName": "md-dark-indigo",
+                "input": "src/theme-saga-green.scss",
+                "bundleName": "saga-green",
+                "inject": false
+              },
+              {
+                "input": "src/theme-saga-orange.scss",
+                "bundleName": "saga-orange",
+                "inject": false
+              },
+              {
+                "input": "src/theme-saga-purple.scss",
+                "bundleName": "saga-purple",
+                "inject": false
+              },
+              {
+                "input": "src/theme-saga-blue.scss",
+                "bundleName": "saga-blue",
+                "inject": false
+              },
+              {
+                "input": "src/theme-lara-dark-teal.scss",
+                "bundleName": "lara-dark-teal",
+                "inject": false
+              },
+              {
+                "input": "src/theme-luna-pink.scss",
+                "bundleName": "luna-pink",
                 "inject": false
               }
             ],
