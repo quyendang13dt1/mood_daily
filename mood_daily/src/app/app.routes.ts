@@ -37,7 +37,7 @@ can be found in the LICENSE file at https://angular.io/license
 
 export const routes: Routes = [
   // { path: '', component:  HomeComponent, },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Works only for root ('/')
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, // Works only for root ('/')
   { path: 'login', component: LoginComponent },
   // {
   //   path: 'login',
