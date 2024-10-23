@@ -1,1 +1,18 @@
-<router-outlet />
+<div style="position: relative">
+  <router-outlet />
+</div>
+<div
+  style="
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  "
+>
+  <p-progressSpinner
+    styleClass="w-3rem h-3rem"
+    strokeWidth="4"
+    animationDuration="2s"
+  />
+</div>

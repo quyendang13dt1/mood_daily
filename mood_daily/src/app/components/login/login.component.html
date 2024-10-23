@@ -35,39 +35,84 @@
 <p-button (onClick)="onSubmit()" label="Submit" />
 <p-toast /> -->
 
-
-
-<div class="flex align-items-center justify-content-center h-screen">
-  <p-card header="Login" subheader="">
-    <form [formGroup]="loginForm" id="loginForm" (ngSubmit)="onSubmit()">
-      <div class="flex flex-column ">
-        <span class="p-input-icon-left my-2">
-          <i class="pi pi-user"></i>
-          <input id="username" formControlName="username" type="text" pInputText placeholder="Username">
-        </span>
-        <div *ngIf="submitted && f['username'].errors" class="flex align-items-center justify-content-end">
-          <small *ngIf="f['username'].errors['required']" id="username-help" class="p-error block flex align-items-center justify-content-end">Username is
-            required.</small>
+<div class="flex align-items-center justify-content-center h-screen login-form">
+  <p-card subheader="" class="card-login">
+    <div class="form">
+      <div class="flex gap-2 justify-content-center align-items-center mb-5">
+        <div>
+          <img
+            style="height: 50px; border-radius: 50%"
+            src="https://media1.tenor.com/m/SX9EXgq_gmkAAAAC/lemon-lime.gif"
+          />
         </div>
-        <span class="p-input-icon-left my-2">
-          <i class="pi pi-key"></i>
-          <input id="password" formControlName="password" type="password" pInputText placeholder="Password">
-        </span>
-        <div *ngIf="submitted && f['password'].errors" class="flex align-items-center justify-content-end">
-          <small *ngIf="f['password'].errors['required']" id="passwword-help" class="p-error block flex align-items-center justify-content-end">Password is
-            required.</small>
+        <div class="text-center font-bold text-4xl">LOGIN</div>
+      </div>
+
+      <form
+        class="mb-5"
+        [formGroup]="loginForm"
+        id="loginForm"
+        (ngSubmit)="onSubmit()"
+      >
+        <div class="flex flex-column">
+          <span class="p-input-icon-left my-2">
+            <i class="pi pi-user"></i>
+            <input
+              class="w-full"
+              id="username"
+              formControlName="username"
+              type="text"
+              pInputText
+              placeholder="Username"
+            />
+          </span>
+          <div
+            *ngIf="submitted && f['username'].errors"
+            class="flex align-items-center justify-content-end"
+          >
+            <small
+              *ngIf="f['username'].errors['required']"
+              id="username-help"
+              class="p-error block flex align-items-center justify-content-end"
+              >Username is required.</small
+            >
+          </div>
+          <span class="p-input-icon-left my-2">
+            <i class="pi pi-key"></i>
+            <input
+              class="w-full"
+              id="password"
+              formControlName="password"
+              type="password"
+              pInputText
+              placeholder="Password"
+            />
+          </span>
+          <div
+            *ngIf="submitted && f['password'].errors"
+            class="flex align-items-center justify-content-end"
+          >
+            <small
+              *ngIf="f['password'].errors['required']"
+              id="passwword-help"
+              class="p-error block flex align-items-center justify-content-end"
+              >Password is required.</small
+            >
+          </div>
         </div>
+      </form>
+      <p-divider></p-divider>
+      <div class="flex align-items-center justify-content-center mt-5">
+        <button
+          style="background-color: #00a549"
+          pButton
+          type="submit"
+          form="loginForm"
+          label="Login"
+          [loading]="loading"
+        ></button>
       </div>
-    </form>
-    <p-divider></p-divider>
-    <ng-template pTemplate="footer">
-      <div class="flex align-items-center justify-content-center">
-        <button pButton type="submit" form="loginForm" label="Submit" [loading]="loading"></button>
-      </div>
-    </ng-template>
+    </div>
   </p-card>
 </div>
 <p-toast></p-toast>
-
-
-

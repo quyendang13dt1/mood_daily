@@ -78,6 +78,11 @@
                 "input": "src/theme-luna-pink.scss",
                 "bundleName": "luna-pink",
                 "inject": false
+              },
+              {
+                "input": "src/theme-aura-light-green.scss",
+                "bundleName": "aura-light-green",
+                "inject": false
               }
             ],
             "scripts": [],
@@ -187,6 +192,11 @@
               {
                 "input": "src/theme-luna-pink.scss",
                 "bundleName": "luna-pink",
+                "inject": false
+              },
+              {
+                "input": "src/theme-aura-light-green.scss",
+                "bundleName": "aura-light-green",
                 "inject": false
               }
             ],
