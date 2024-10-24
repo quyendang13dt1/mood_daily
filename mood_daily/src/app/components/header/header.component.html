@@ -1,5 +1,61 @@
-<p-avatar
-  image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-  styleClass="mr-2"
-  shape="circle"
-/>
+<div class="flex align-items-center gap-3">
+  <!-- <div pRipple class="cursor-pointer" (click)="visibleConfig = true">
+    <i class="pi pi-cog" style="font-size: 1.5rem"></i>
+  </div> -->
+  <p-button
+    icon="pi pi-cog"
+    [rounded]="true"
+    severity="secondary"
+    [outlined]="true"
+    (click)="visibleConfig = true"
+  />
+  <p-avatar
+    pRipple
+    image="https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png"
+    styleClass="mr-2"
+    shape="circle"
+    class="cursor-pointer"
+    (click)="menu.toggle($event)"
+  />
+
+  <p-menu #menu [model]="items" [popup]="true" />
+</div>
+
+<p-sidebar [(visible)]="visibleConfig" position="right">
+  <div class="flex flex-column gap-5">
+    <div class="text-3xl font-bold">Themes</div>
+    <div class="flex flex-wrap gap-4 justify-content-left">
+      @for (item of themesConfigList; track item) {
+      <div
+        class="flex justify-content-center align-items-center mr-2 cursor-pointer"
+        style="width: 28px; height: 28px; border-radius: 50%"
+        [style.background-color]="item?.color"
+        (click)="onChangeThemes(item)"
+      >
+        @if(themeSelected === item?.key) {
+        <i class="pi pi-check" style="font-size: 1rem; color: white"></i>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</p-sidebar>
+
+<!-- <p-overlayPanel #op>
+  <div class="flex flex-column gap-1 profile-user" style="width: 100px">
+    <div
+      pRipple
+      class="flex justify-content-left align-items-center gap-2 cursor-pointer p-2 item"
+      (click)="onConfig()"
+    >
+      <i class="pi pi-cog"></i> Config
+    </div>
+    <div
+      (click)="onLogout()"
+      pRipple
+      class="flex justify-content-left align-items-center gap-2 cursor-pointer p-2 item"
+    >
+      <i class="pi pi-sign-out"></i> Log Out
+    </div>
+  </div>
+</p-overlayPanel> -->

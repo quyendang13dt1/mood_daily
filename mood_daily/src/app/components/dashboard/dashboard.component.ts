@@ -7,6 +7,11 @@ import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 import { ThemeService } from '../../service/theme.service';
 import { MenuComponent } from '../menu/menu.component';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { RippleModule } from 'primeng/ripple';
+import { MoodFormComponent } from '../mood-form/mood-form.component';
+import { HistoryComponent } from '../history/history.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -17,14 +22,18 @@ import { DialogModule } from 'primeng/dialog';
     AnimateOnScrollModule,
     MenuComponent,
     DialogModule,
+    InputTextModule,
+    InputTextareaModule,
+    RippleModule,
+    MoodFormComponent,
+    HistoryComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   sidebarVisible: boolean = false;
-  history = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  visible: boolean = false;
+  visibleMoodPopup: boolean = false;
   constructor(private themeService: ThemeService) {}
   ngOnInit(): void {
     // AOS.init({
@@ -38,6 +47,10 @@ export class DashboardComponent implements OnInit {
   }
 
   showDialog() {
-    this.visible = true;
+    this.visibleMoodPopup = true;
+  }
+
+  closeDialog() {
+    this.visibleMoodPopup = false;
   }
 }

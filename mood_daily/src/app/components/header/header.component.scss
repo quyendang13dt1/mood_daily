@@ -1,0 +1,13 @@
+
+:host::ng-deep { 
+    .profile-user {
+        // .p-listbox {
+        //     border: none !important;
+        // }
+        .item::hover {
+            background-color: green;
+        }
+    }
+}
+
+

@@ -1,170 +1,85 @@
-<div class="col-12">
-  <app-menu></app-menu>
-</div>
-<!-- <p-button label="Dark Indigo" (click)="onUpdateTheme('md-dark-indigo')" />
-<p-button label="Saga Blue" (click)="onUpdateTheme('saga-blue')" />
-<p-button label="Saga Green" (click)="onUpdateTheme('saga-green')" />
-<p-button label="Saga Orange" (click)="onUpdateTheme('saga-orange')" />
-<p-button label="Saga Purple" (click)="onUpdateTheme('saga-purple')" />
-<p-button label="Lara-dark-teal" (click)="onUpdateTheme('lara-dark-teal')" />
-<p-button label="luna-pink" (click)="onUpdateTheme('luna-pink')" /> -->
+<div class="flex flex-column gap-2 p-3">
+  <div class="card shadow-2 col-12 p-3 mt-2">
+    <app-menu></app-menu>
+  </div>
+  <!-- <p-button label="Dark Indigo" (click)="onUpdateTheme('md-dark-indigo')" />
+  <p-button label="Saga Blue" (click)="onUpdateTheme('saga-blue')" />
+  <p-button label="Saga Green" (click)="onUpdateTheme('saga-green')" />
+  <p-button label="Saga Orange" (click)="onUpdateTheme('saga-orange')" />
+  <p-button label="Saga Purple" (click)="onUpdateTheme('saga-purple')" />
+  <p-button label="Lara-dark-teal" (click)="onUpdateTheme('lara-dark-teal')" />
+  <p-button label="luna-pink" (click)="onUpdateTheme('luna-pink')" /> -->
 
-<div class="grid">
-  <div class="col-12 xl:col-8">
-    <div class="grid">
-      <div class="col-12 md:col-12 xl:col-4">
-        <div
-          class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
-        >
-          A
+  <div class="grid">
+    <!-- <div class="col-12 xl:col-8">
+      <div class="grid">
+        <div class="col-12 md:col-12 xl:col-4">
+          <div
+            class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
+          >
+            A
+          </div>
+        </div>
+        <div class="col-12 md:col-12 xl:col-4">
+          <div
+            class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
+          >
+            A
+          </div>
+        </div>
+        <div class="col-12 md:col-12 xl:col-4">
+          <div
+            class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
+          >
+            A
+          </div>
+        </div>
+        <div class="col-12 md:col-12 xl:col-12">
+          <div class="card">
+            <div style="width: 100%">
+              <app-line-chart></app-line-chart>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-12 md:col-12 xl:col-4">
-        <div
-          class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
-        >
-          A
-        </div>
-      </div>
-      <div class="col-12 md:col-12 xl:col-4">
-        <div
-          class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
-        >
-          A
-        </div>
-      </div>
+    </div> -->
+    <div class="col-12 xl:col-8">
       <div class="col-12 md:col-12 xl:col-12">
-        <div class="card">
+        <div class="card shadow-2">
           <div style="width: 100%">
             <app-line-chart></app-line-chart>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 xl:col-4">
-    <div class="flex flex-column gap-3">
-      <div class="flex justify-content-between">
-        <div>History Mood Daily</div>
-        <div>
-          <p-button (onClick)="showDialog()" icon="pi pi-plus" />
-        </div>
-      </div>
-      @for (item of history; track item) {
-      <div
-        pAnimateOnScroll
-        enterClass="fadeinright"
-        leaveClass="fadeoutright"
-        class="flex shadow-4 justify-content-center align-items-center h-10rem sm:h-15rem animation-duration-1000 animation-ease-in-out card"
-      >
-        <div>
-          <div class="flex gap-2">
-            <div><img width="50px" src="assets/icon/happy.svg" /></div>
-            <div class="flex flex-column">
-              <div>Title Title Title Title</div>
-              <div>1 hours</div>
-            </div>
+        <div class="card shadow-2">
+          <div style="width: 100%">
+            <app-pie-chart></app-pie-chart>
           </div>
-          <div>Desc Desc Desc Desc Desc Desc Desc Desc</div>
-          <div>Images</div>
         </div>
       </div>
-      }
+    </div>
+    <div class="col-12 xl:col-4">
+      <div class="flex flex-column gap-3">
+        <div class="flex justify-content-between align-items-center">
+          <div class="text-xl font-bold">History Mood Daily</div>
+          <div>
+            <p-button
+              label="Create mood"
+              (onClick)="showDialog()"
+              icon="pi pi-plus"
+            />
+          </div>
+        </div>
+        <app-history></app-history>
+      </div>
     </div>
   </div>
+
+  <p-dialog
+    header="Mood daily"
+    [modal]="true"
+    [(visible)]="visibleMoodPopup"
+    [style]="{ width: '42rem' }"
+  >
+    <app-mood-form (close)="closeDialog()"></app-mood-form>
+  </p-dialog>
 </div>
-
-<p-dialog
-  header="Edit Profile"
-  [modal]="true"
-  [(visible)]="visible"
-  [style]="{ width: '25rem' }"
->
-  <span class="p-text-secondary block mb-5">Update your information.</span>
-  <div class="flex align-items-center gap-3 mb-3">
-    <label for="username" class="font-semibold w-6rem">Username</label>
-    <input pInputText id="username" class="flex-auto" autocomplete="off" />
-  </div>
-  <div class="flex align-items-center gap-3 mb-5">
-    <label for="email" class="font-semibold w-6rem">Email</label>
-    <input pInputText id="email" class="flex-auto" autocomplete="off" />
-  </div>
-  <div class="flex justify-content-end gap-2">
-    <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
-    <p-button label="Save" (onClick)="visible = false" />
-  </div>
-</p-dialog>
-
-<!-- <div class="card flex flex-column align-items-center overflow-hidden">
-  <div class="flex flex-column align-items-center gap-2">
-    <span class="text-xl font-medium">Scroll Down</span>
-    <span
-      class="slidedown-icon h-2rem w-2rem bg-primary border-circle inline-flex align-items-center justify-content-center"
-    >
-      <i class="pi pi-arrow-down"></i>
-    </span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="fadein"
-    leaveClass="fadeout"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000"
-  >
-    <span class="text-3xl font-bold">fade-in</span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="fadeinleft"
-    leaveClass="fadeoutleft"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out"
-  >
-    <span class="text-3xl font-bold">fade-left</span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="fadeinright"
-    leaveClass="fadeoutright"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out"
-  >
-    <span class="text-3xl font-bold">fade-right</span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="zoomin"
-    leaveClass="fadeout"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000"
-  >
-    <span class="text-3xl font-bold">zoom</span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="flipleft"
-    leaveClass="fadeout"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out"
-  >
-    <span class="text-3xl font-bold">flip-left</span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="flipup"
-    leaveClass="fadeout"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out"
-  >
-    <span class="text-3xl font-bold">flip-y</span>
-  </div>
-  <div class="h-30rem"></div>
-  <div
-    pAnimateOnScroll
-    enterClass="scalein"
-    leaveClass="fadeout"
-    class="flex box shadow-4 justify-content-center align-items-center h-10rem w-10rem sm:h-15rem sm:w-15rem border-round animation-duration-1000 animation-ease-in-out"
-  >
-    <span class="text-3xl font-bold">scalein</span>
-  </div>
-</div> -->

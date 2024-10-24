@@ -109,28 +109,28 @@ export class LoginComponent {
     }
     this.loading = true;
 
-    const response = this.authService.login(
-      this.f['username'].value,
-      this.f['password'].value
-    );
+    setTimeout(() => {
+      const response = this.authService.login(
+        this.f['username'].value,
+        this.f['password'].value
+      );
+      if (response) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Signin Successful',
+        });
+        this.router.navigate(['dashboard']);
+      } else {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Signin Failed',
+        });
+      }
+      this.loading = false;
+    }, 500);
 
-    if (response) {
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Success',
-        detail: 'Signin Successful',
-      });
-      setTimeout(() => {
-        this.router.navigate(['pages/home']);
-      }, 2000);
-    } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Error',
-        detail: 'Signin Failed',
-      });
-    }
-    this.loading = false;
     // .subscribe(() => {
     //   this.messageService.add({severity:'success', summary: 'Success', detail: 'Signin Successful'});
     //   this.router.navigate([this.returnUrl]);

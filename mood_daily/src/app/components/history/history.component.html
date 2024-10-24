@@ -1,0 +1,21 @@
+<div class="flex flex-column gap-2">
+  @for (item of history; track item) {
+  <div
+    pAnimateOnScroll
+    enterClass="fadeinright"
+    leaveClass="fadeoutright"
+    class="flex shadow-2 justify-content-center align-items-center h-5rem sm:h-10rem animation-duration-1000 animation-ease-in-out card mb-0"
+  >
+    <div class="flex flex-column gap-3 w-full">
+      <div class="flex align-items-center gap-3">
+        <div><img width="50px" [src]="item?.status?.url" /></div>
+        <div class="flex flex-column">
+          <div class="text-lg font-bold">{{ item?.title }}</div>
+          <div class="text-xs">1 hours</div>
+        </div>
+      </div>
+      <div>{{ item?.desc }}</div>
+    </div>
+  </div>
+  }
+</div>
