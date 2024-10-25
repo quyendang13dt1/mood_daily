@@ -1,0 +1,31 @@
+<div class="flex flex-column gap-4">
+  <div class="flex justify-content-between">
+    <div class="text-xl font-bold">Your mood of the week</div>
+    <div>
+      <p-dropdown
+        [options]="timeList"
+        [(ngModel)]="selectedTime"
+        optionLabel="name"
+        placeholder="Select a Time"
+        [loading]="loadingTimeList"
+      />
+    </div>
+  </div>
+
+  <div class="mx-4" #columnChartTemp style="position: relative">
+    <p-chart
+      id="column-chart"
+      type="bar"
+      [data]="basicData"
+      [options]="basicOptions"
+    />
+    @for (item of moodList; track item; let idx = $index) {
+    <img
+      style="position: absolute; left: -25px"
+      [style.top]="(item?.top ?? 0) + 'px'"
+      width="25px"
+      [src]="item?.url"
+    />
+    }
+  </div>
+</div>

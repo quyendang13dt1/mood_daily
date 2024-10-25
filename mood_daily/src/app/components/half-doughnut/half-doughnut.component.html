@@ -1,0 +1,44 @@
+<!-- <div class="outer">
+  <canvas id="chartJSContainer" width="600" height="400"></canvas>
+  <canvas id="secondContainer" width="600" height="400"></canvas>
+  <p class="percent">89%</p>
+</div> -->
+
+<div class="donut-container">
+  <div class="chart-container" style="position: relative">
+    <canvas id="donut-chart"></canvas>
+    <div
+      class="needle"
+      style="
+        position: absolute;
+        left: calc(50% - 9px);
+        top: 75%;
+        width: 2px;
+        height: 50%;
+        rotate: inherit;
+        transform: rotate(293deg);
+        transform-origin: top left;
+        border-left: 50px solid transparent;
+
+        width: 0;
+        height: 50%;
+        border-left: 0px solid transparent;
+        border-right: 340px solid transparent;
+        border-top: 15px solid red;
+      "
+    ></div>
+    <div
+      style="
+        position: absolute;
+        left: 50%;
+        top: 75%;
+        width: 30px;
+        height: 30px;
+        background-color: red;
+        transform-origin: center;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+      "
+    ></div>
+  </div>
+</div>

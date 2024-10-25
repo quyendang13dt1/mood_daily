@@ -1,85 +1,95 @@
-<div class="flex flex-column gap-2 p-3">
-  <div class="card shadow-2 col-12 p-3 mt-2">
-    <app-menu></app-menu>
-  </div>
-  <!-- <p-button label="Dark Indigo" (click)="onUpdateTheme('md-dark-indigo')" />
+<div class="layout-content-wrapper">
+  <div class="flex flex-column gap-2 p-3">
+    <div class="card shadow-2 col-12 p-3 mt-2">
+      <app-menu></app-menu>
+    </div>
+    <!-- <p-button label="Dark Indigo" (click)="onUpdateTheme('md-dark-indigo')" />
   <p-button label="Saga Blue" (click)="onUpdateTheme('saga-blue')" />
   <p-button label="Saga Green" (click)="onUpdateTheme('saga-green')" />
   <p-button label="Saga Orange" (click)="onUpdateTheme('saga-orange')" />
   <p-button label="Saga Purple" (click)="onUpdateTheme('saga-purple')" />
   <p-button label="Lara-dark-teal" (click)="onUpdateTheme('lara-dark-teal')" />
   <p-button label="luna-pink" (click)="onUpdateTheme('luna-pink')" /> -->
-
-  <div class="grid">
-    <!-- <div class="col-12 xl:col-8">
+    <div class="layout-content">
       <div class="grid">
-        <div class="col-12 md:col-12 xl:col-4">
-          <div
-            class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
-          >
-            A
+        <!-- <div class="col-12 xl:col-8">
+        <div class="grid">
+          <div class="col-12 md:col-12 xl:col-4">
+            <div
+              class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
+            >
+              A
+            </div>
           </div>
-        </div>
-        <div class="col-12 md:col-12 xl:col-4">
-          <div
-            class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
-          >
-            A
+          <div class="col-12 md:col-12 xl:col-4">
+            <div
+              class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
+            >
+              A
+            </div>
           </div>
-        </div>
-        <div class="col-12 md:col-12 xl:col-4">
-          <div
-            class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
-          >
-            A
+          <div class="col-12 md:col-12 xl:col-4">
+            <div
+              class="overview-card surface-card py-3 px-4 shadow-1 border-round-md h-full"
+            >
+              A
+            </div>
           </div>
-        </div>
-        <div class="col-12 md:col-12 xl:col-12">
-          <div class="card">
-            <div style="width: 100%">
-              <app-line-chart></app-line-chart>
+          <div class="col-12 md:col-12 xl:col-12">
+            <div class="card">
+              <div style="width: 100%">
+                <app-line-chart></app-line-chart>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div> -->
-    <div class="col-12 xl:col-8">
-      <div class="col-12 md:col-12 xl:col-12">
-        <div class="card shadow-2">
-          <div style="width: 100%">
-            <app-line-chart></app-line-chart>
+      </div> -->
+        <div class="col-12 xl:col-8">
+          <div class="col-12 md:col-12 xl:col-12">
+            <div
+              pAnimateOnScroll
+              enterClass="fadeinleft"
+              leaveClass="fadeoutleft"
+              class="card shadow-2 animation-duration-1000 animation-ease-in-out"
+            >
+              <div style="width: 100%">
+                <!-- <app-line-chart></app-line-chart> -->
+                <app-column-chart></app-column-chart>
+              </div>
+            </div>
+            <div class="card shadow-2">
+              <div style="width: 100%">
+                <app-pie-chart></app-pie-chart>
+                <!-- <app-half-doughnut></app-half-doughnut> -->
+              </div>
+            </div>
           </div>
         </div>
-        <div class="card shadow-2">
-          <div style="width: 100%">
-            <app-pie-chart></app-pie-chart>
+        <div class="col-12 xl:col-4">
+          <div class="flex flex-column gap-3">
+            <div class="flex justify-content-between align-items-center">
+              <div class="text-xl font-bold">History Mood Daily</div>
+              <div>
+                <p-button
+                  label="Create mood"
+                  (onClick)="showDialog()"
+                  icon="pi pi-plus"
+                />
+              </div>
+            </div>
+            <app-history></app-history>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12 xl:col-4">
-      <div class="flex flex-column gap-3">
-        <div class="flex justify-content-between align-items-center">
-          <div class="text-xl font-bold">History Mood Daily</div>
-          <div>
-            <p-button
-              label="Create mood"
-              (onClick)="showDialog()"
-              icon="pi pi-plus"
-            />
-          </div>
-        </div>
-        <app-history></app-history>
-      </div>
-    </div>
-  </div>
 
-  <p-dialog
-    header="Mood daily"
-    [modal]="true"
-    [(visible)]="visibleMoodPopup"
-    [style]="{ width: '42rem' }"
-  >
-    <app-mood-form (close)="closeDialog()"></app-mood-form>
-  </p-dialog>
+    <p-dialog
+      header="Mood daily"
+      [modal]="true"
+      [(visible)]="visibleMoodPopup"
+      [style]="{ width: '42rem' }"
+    >
+      <app-mood-form (close)="closeDialog()"></app-mood-form>
+    </p-dialog>
+  </div>
 </div>

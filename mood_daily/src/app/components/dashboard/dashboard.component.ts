@@ -12,6 +12,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RippleModule } from 'primeng/ripple';
 import { MoodFormComponent } from '../mood-form/mood-form.component';
 import { HistoryComponent } from '../history/history.component';
+import { ColumnChartComponent } from '../column-chart/column-chart.component';
+import { HalfDoughnutComponent } from '../half-doughnut/half-doughnut.component';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -27,6 +29,8 @@ import { HistoryComponent } from '../history/history.component';
     RippleModule,
     MoodFormComponent,
     HistoryComponent,
+    ColumnChartComponent,
+    HalfDoughnutComponent,
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',

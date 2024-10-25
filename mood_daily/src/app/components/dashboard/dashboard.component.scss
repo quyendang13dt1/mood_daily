@@ -29,3 +29,16 @@
 .h-30rem {
     height: 30rem !important;
 }
+
+.layout-content-wrapper .layout-content {
+    min-height: calc(100vh - 13.5rem);
+    padding: 2rem;
+}
+
+@media screen and (min-width: 1729px) {
+    .layout-content {
+        width: 1504px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}

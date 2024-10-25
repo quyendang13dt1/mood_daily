@@ -1,0 +1,30 @@
+// .outer {
+//     position: relative;
+//     width: 600px;
+//     height: 400px;
+//   }
+//   canvas {
+//     position: absolute;
+//   }
+//   .percent {
+//    position: absolute;
+//       left: 50%;
+//       transform: translate(-50%, 0);
+//       font-size: 80px;
+//       bottom: 0;
+//   }
+
+.donut-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .chart-container {
+    width: 100%; /* Make the container responsive */
+    // max-width: 500px; /* Optionally, set a maximum width */
+    margin: 0 auto; /* Center the container */
+  }
+
+  .needle::before {
+    // content: '';
+  }
