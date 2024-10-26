@@ -114,7 +114,6 @@ export class LineChartComponent implements OnInit {
       return image;
     });
     const values = [48, 56, 33, 44];
-    debugger;
     new Chart(
       this.document?.getElementById('MyChartTEST') as any,
       {

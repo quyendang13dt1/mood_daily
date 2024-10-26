@@ -1,0 +1,7 @@
+.item-mood {
+    transition: transform 0.1s;
+}
+
+.item-mood:hover {
+    transform: scale(1.05);
+}

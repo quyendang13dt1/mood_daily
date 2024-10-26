@@ -1,38 +1,63 @@
 <div class="flex flex-column gap-3">
   <span class="p-text-secondary block">How are you feel today?</span>
-  <div class="flex flex-wrap justify-content-center gap-2">
-    @for (item of moodList; track item) {
-    <!-- <div class="flex align-items-center gap-2">
-      <img width="30px" src="{{ item?.url }}" />
-      <div>{{ item?.name }}</div>
-    </div> -->
-    <div
-      pRipple
-      class="card shadow-2 p-2 flex gap-2 align-items-center cursor-pointer mb-0"
-      style="width: 100px"
-      [style.background-color]="
-        moodStatus?.key === item?.key ? item?.backgroundSelected : ''
-      "
-      (click)="moodStatus = item"
-    >
-      <img width="25px" src="{{ item?.url }}" />
-      <div>{{ item?.name }}</div>
+  <div class="flex flex-column gap-3">
+    <div class="flex flex-wrap justify-content-center gap-2">
+      @for (item of moodList; track item) {
+      <!-- <div class="flex align-items-center gap-2">
+        <img width="30px" src="{{ item?.url }}" />
+        <div>{{ item?.name }}</div>
+      </div> -->
+      <div
+        pRipple
+        class="card shadow-2 p-2 flex gap-2 align-items-center cursor-pointer mb-0 item-mood"
+        style="width: 100px"
+        [style.background-color]="
+          moodStatus?.key === item?.key ? item?.backgroundSelected : ''
+        "
+        [style.border]="
+          moodStatus?.key === item?.key ? '1px solid var(--primary-color)' : ''
+        "
+        (click)="moodStatus = item"
+      >
+        <img width="25px" src="{{ item?.url }}" />
+        <div>{{ item?.name }}</div>
+      </div>
+      }
+    </div>
+    @if(!moodStatus && isSubmit) {
+    <div class="flex align-items-center justify-content-end">
+      <small
+        id="username-help"
+        class="p-error block flex align-items-center justify-content-end"
+        >Your mood is required.</small
+      >
     </div>
     }
   </div>
+
   <div class="flex flex-column gap-3">
     <div class="flex flex-column gap-2">
       <div>
         <label for="username" class="font-semibold w-6rem">Title</label>
       </div>
-      <div>
+      <div class="flex flex-column gap-2">
         <input
           pInputText
           id="username"
           class="flex-auto w-full"
           autocomplete="off"
           [(ngModel)]="moodTitle"
+          [class.error-border]="!moodTitle && isSubmit"
         />
+        @if(!moodTitle && isSubmit) {
+        <div class="flex align-items-center justify-content-end">
+          <small
+            id="username-help"
+            class="p-error block flex align-items-center justify-content-end"
+            >Username is required.</small
+          >
+        </div>
+        }
       </div>
     </div>
     <div class="flex flex-column gap-2">
@@ -41,7 +66,7 @@
           >Description</label
         >
       </div>
-      <div>
+      <div class="flex flex-column gap-2">
         <textarea
           class="w-full"
           id="description"
@@ -49,13 +74,23 @@
           cols="30"
           pInputTextarea
           [(ngModel)]="moodeDesc"
+          [class.error-border]="!moodeDesc && isSubmit"
         ></textarea>
+        @if(!moodeDesc && isSubmit) {
+        <div class="flex align-items-center justify-content-end">
+          <small
+            id="description-help"
+            class="p-error block flex align-items-center justify-content-end"
+            >Description is required.</small
+          >
+        </div>
+        }
       </div>
     </div>
   </div>
 </div>
 
-<div class="flex justify-content-end gap-2 mt-3">
+<div class="flex justify-content-end gap-2 mt-4">
   <p-button label="Cancel" severity="secondary" (onClick)="onClose()" />
   <p-button label="Save" (onClick)="onSubmit()" />
 </div>

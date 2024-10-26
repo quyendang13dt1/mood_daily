@@ -10,9 +10,11 @@ import {
 import { ChartModule } from 'primeng/chart';
 import { MOOD_STATUS, MOOD_STATUS_KEY } from '../mood-form/mood-form.component';
 import { Chart } from 'chart.js';
-import { DOCUMENT } from '@angular/common';
+import { DatePipe, DOCUMENT } from '@angular/common';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { MoodService } from '../../service/mood.service';
 
 Chart.register({
   id: 'customYAxisIcons',
@@ -62,6 +64,7 @@ Chart.register({
   selector: 'app-column-chart',
   standalone: true,
   imports: [ChartModule, DropdownModule, FormsModule],
+  providers: [DatePipe],
   templateUrl: './column-chart.component.html',
   styleUrl: './column-chart.component.scss',
 })
@@ -81,9 +84,12 @@ export class ColumnChartComponent {
   ];
   loadingTimeList = true;
   selectedTime: any;
+  subscription = new Subscription();
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private moodService: MoodService,
+    private datePipe: DatePipe
   ) {}
   udpateChart() {
     // const ticks = document.querySelectorAll('.y-axis .tick');
@@ -136,7 +142,53 @@ export class ColumnChartComponent {
       this.selectedTime = this.timeList?.[0];
     }, 700);
 
-    this.loadChart();
+    const moodList$ = this.moodService.moodList$.subscribe((rs) => {
+      const data = [...rs]?.reverse();
+      this.basicData = {
+        labels: data?.map((x: any) => {
+          return this.datePipe.transform(x?.createdTime, 'dd.MMM yyyy');
+        }),
+        datasets: [
+          {
+            label: 'Mood',
+            data: data?.map((x: any) => {
+              return MOOD_STATUS[x?.status?.key].value;
+            }),
+            backgroundColor: data?.map((x: any) => {
+              return MOOD_STATUS[x?.status?.key].color;
+            }),
+            borderColor: data?.map((x: any) => {
+              return MOOD_STATUS[x?.status?.key].color;
+            }),
+            // backgroundColor: [
+            //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+            // ],
+            // borderColor: [
+            //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+            // ],
+            borderWidth: 1,
+          },
+        ],
+      };
+      this.loadChart();
+    });
+    this.subscription.add(moodList$);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   loadChart() {
@@ -147,42 +199,42 @@ export class ColumnChartComponent {
     // );
     // const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-    this.basicData = {
-      labels: [
-        '24.Oct 2024',
-        '25.Oct 2024',
-        '26.Oct 2024',
-        '27.Oct 2024',
-        '28.Oct 2024',
-        '29.Oct 2024',
-        '30.Oct 2024',
-      ],
-      datasets: [
-        {
-          label: 'Mood',
-          data: [3, 4, 2, 5, 1, 2, 3, 4],
-          backgroundColor: [
-            MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-          ],
-          borderColor: [
-            MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-          ],
-          borderWidth: 1,
-        },
-      ],
-    };
+    // this.basicData = {
+    //   labels: [
+    //     '24.Oct 2024',
+    //     '25.Oct 2024',
+    //     '26.Oct 2024',
+    //     '27.Oct 2024',
+    //     '28.Oct 2024',
+    //     '29.Oct 2024',
+    //     '30.Oct 2024',
+    //   ],
+    //   datasets: [
+    //     {
+    //       label: 'Mood',
+    //       data: [3, 4, 2, 5, 1, 2, 3, 4],
+    //       backgroundColor: [
+    //         MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+    //       ],
+    //       borderColor: [
+    //         MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+    //       ],
+    //       borderWidth: 1,
+    //     },
+    //   ],
+    // };
     let delayed: any;
     this.basicOptions = {
       animation: {

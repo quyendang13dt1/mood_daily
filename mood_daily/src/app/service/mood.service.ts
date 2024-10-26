@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 export interface MoodStatus {
   key: string;
   url: string;
   name: string;
   backgroundSelected: string;
 }
+
+export interface Mood {
+  status: MoodStatus;
+  title: string;
+  desc: string;
+  createdTime: number;
+}
 @Injectable({
   providedIn: 'root',
 })
 export class MoodService {
-  moodList: {
-    status: MoodStatus;
-    title: string;
-    desc: string;
-  }[] = [
+  moodListFake: Mood[] = [
     {
       status: {
         key: 'anxious',
@@ -23,6 +27,7 @@ export class MoodService {
       },
       title: 'Nervous Energy',
       desc: 'Felt uneasy and restless most of the day.',
+      createdTime: 1729954556556,
     },
     {
       status: {
@@ -33,6 +38,7 @@ export class MoodService {
       },
       title: 'Feeling Blue',
       desc: 'A bit down today, needed some time to reflect.',
+      createdTime: 1729868156556,
     },
     {
       status: {
@@ -43,6 +49,7 @@ export class MoodService {
       },
       title: 'Big News!',
       desc: 'Received exciting news that made my day.',
+      createdTime: 1729781756556,
     },
     {
       status: {
@@ -53,6 +60,7 @@ export class MoodService {
       },
       title: 'Bright and Cheerful',
       desc: 'Everything felt positive and light today.',
+      createdTime: 1729695356556,
     },
     {
       status: {
@@ -63,6 +71,7 @@ export class MoodService {
       },
       title: 'Balanced Day',
       desc: 'A calm, uneventful day without much excitement.',
+      createdTime: 1729608956556,
     },
     {
       status: {
@@ -73,6 +82,7 @@ export class MoodService {
       },
       title: 'Tense Moments',
       desc: 'Felt overwhelmed by little things throughout the day.',
+      createdTime: 1729522556556,
     },
     {
       status: {
@@ -83,7 +93,26 @@ export class MoodService {
       },
       title: 'Not My Day',
       desc: 'A tough day emotionally, hoping tomorrow will be better.',
+      createdTime: 1729436156556,
     },
   ];
-  constructor() {}
+
+  moodList$ = new BehaviorSubject<Mood[]>([]);
+
+  constructor() {
+    const updatedData = this.addCreatedTime(this.moodListFake);
+    this.moodList$.next(updatedData);
+  }
+
+  addCreatedTime(data: any[]) {
+    const currentTime = Date.now();
+    return data.map((item, index) => ({
+      ...item,
+      createdTime: currentTime - index * 24 * 60 * 60 * 1000,
+    }));
+  }
+
+  addMoodDaily(data: Mood) {
+    this.moodList$.next([data, ...this.moodList$?.value]);
+  }
 }

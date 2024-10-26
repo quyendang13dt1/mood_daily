@@ -29,6 +29,14 @@ body {
     margin-bottom: 1rem;
 }
 
+.p-error {
+    color: #f12f2f;
+}
+
+.error-border { 
+    border: 1px solid #f12f2f;
+}
+
 [class*="col-"] {
     padding: 1rem !important;
 }

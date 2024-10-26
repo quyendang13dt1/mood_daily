@@ -75,18 +75,31 @@ export class MoodFormComponent {
   moodTitle: string = '';
   moodeDesc: string = '';
 
+  isSubmit = false;
+
   constructor(private moodService: MoodService) {}
   onClose() {
     this.close.emit(true);
   }
 
   onSubmit() {
-    this.moodService.moodList?.push({
+    this.isSubmit = true;
+    if (!(this.moodStatus && this.moodTitle && this.moodeDesc)) {
+      return;
+    }
+    this.moodService.addMoodDaily({
       status: this.moodStatus,
       title: this.moodTitle,
       desc: this.moodeDesc,
+      createdTime: new Date()?.getTime(),
     });
+
     this.close.emit(true);
-    console.log('zzzzzz', this.moodService.moodList);
+  }
+
+  resetForm() {
+    this.moodStatus = '';
+    this.moodTitle = '';
+    this.moodeDesc = '';
   }
 }

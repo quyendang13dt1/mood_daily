@@ -1,0 +1,6 @@
+.item-history {
+    transition: transform 0.3s;
+}
+.item-history:hover {
+    transform: scale(1.05);
+}
