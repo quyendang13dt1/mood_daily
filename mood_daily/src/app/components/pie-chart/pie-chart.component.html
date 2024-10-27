@@ -113,7 +113,7 @@
           <div class="flex justify-content-end">
             Evaluate:
             <p-rating
-              [(ngModel)]="statusToday.value"
+              [(ngModel)]="ratingLast7Days"
               [readonly]="true"
               [cancel]="false"
             />
@@ -123,14 +123,17 @@
 
       <p-fieldset legend="Suggestions to boost your mood:">
         <div class="flex flex-column">
-          <div>
+          @for (item of suggestions; track item; let idx = $index) {
+          <div>{{ $index + 1 }}. {{ item }}</div>
+          }
+          <!-- <div>
             1. Relax your body: Try deep breathing or 10 minutes of yoga. 🧘
           </div>
           <div>2. Connect with others: Call a friend or family member. 📞</div>
           <div>3. Get outdoors: Go for a walk or spend time in nature. 🌳</div>
           <div>
             4. Capture small joys: Write down 3 positive things from today. 📓
-          </div>
+          </div> -->
           <a class="text-right text-xs font-italic mt-3">
             <span
               class="cursor-pointer"

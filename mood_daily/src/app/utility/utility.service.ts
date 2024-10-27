@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MOOD_STATUS } from '../components/mood-form/mood-form.component';
 
 @Injectable({
   providedIn: 'root',
@@ -39,5 +40,20 @@ export class Utility {
       today.getFullYear() === date.getFullYear() &&
       today.getMonth() === date.getMonth()
     );
+  }
+
+  // get item last 7 day
+  static getItemLast7Days(data: any) {
+    const now = Date.now();
+    const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000;
+    return data.filter((item: any) => item.createdTime >= sevenDaysAgo);
+  }
+
+  static getRateAverageLast7Days(data: any) {
+    const dataConvert = Utility.getItemLast7Days(data)?.map(
+      (x: any) => MOOD_STATUS?.[x?.status?.key]?.value
+    );
+    const sum = dataConvert.reduce((acc: any, val: any) => acc + val, 0);
+    return Math.ceil(sum / dataConvert.length);
   }
 }

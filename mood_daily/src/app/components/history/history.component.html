@@ -1,4 +1,4 @@
-<!-- <div class="flex flex-column gap-3">
+<div class="flex flex-column gap-3">
   @for (item of history; track item) {
   <div
     pAnimateOnScroll
@@ -16,14 +16,14 @@
         </div>
       </div>
       <div class="text-right text-xs font-italic">
-        {{ item?.createdTime | dateAgo }}
+        {{ item?.createdTime | date : "dd.MMM yyyy - HH:mm:ss" }}
       </div>
     </div>
   </div>
   }
-</div> -->
+</div>
 
-<p-scrollPanel [style]="{ width: '100%', height: '100vh' }">
+<!-- <p-scrollPanel [style]="{ width: '100%', height: '100vh' }">
   <div class="flex flex-column gap-3">
     @for (item of history; track item) {
     <div
@@ -42,11 +42,10 @@
           </div>
         </div>
         <div class="text-right text-xs font-italic">
-          <!-- {{ item?.createdTime | dateAgo }} -->
           {{ item?.createdTime | date : "dd.MMM yyyy - HH:mm:ss" }}
         </div>
       </div>
     </div>
     }
   </div>
-</p-scrollPanel>
+</p-scrollPanel> -->
