@@ -100,7 +100,7 @@ export class MoodFormComponent {
       });
       this.resetForm();
       this.close.emit(true);
-    }, 1000);
+    }, 600);
   }
 
   resetForm() {
