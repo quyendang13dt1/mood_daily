@@ -76,6 +76,7 @@ export class MoodFormComponent {
   moodeDesc: string = '';
 
   isSubmit = false;
+  isLoading = false;
 
   constructor(private moodService: MoodService) {}
   onClose() {
@@ -87,14 +88,19 @@ export class MoodFormComponent {
     if (!(this.moodStatus && this.moodTitle && this.moodeDesc)) {
       return;
     }
-    this.moodService.addMoodDaily({
-      status: this.moodStatus,
-      title: this.moodTitle,
-      desc: this.moodeDesc,
-      createdTime: new Date()?.getTime(),
-    });
-    this.resetForm();
-    this.close.emit(true);
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+
+      this.moodService.addMoodDaily({
+        status: this.moodStatus,
+        title: this.moodTitle,
+        desc: this.moodeDesc,
+        createdTime: new Date()?.getTime(),
+      });
+      this.resetForm();
+      this.close.emit(true);
+    }, 1000);
   }
 
   resetForm() {

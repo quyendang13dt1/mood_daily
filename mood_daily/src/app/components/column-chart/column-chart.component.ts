@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MoodService } from '../../service/mood.service';
 import { Utility } from '../../utility/utility.service';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 Chart.register({
   id: 'customYAxisIcons',
@@ -69,7 +70,7 @@ export enum Time {
 @Component({
   selector: 'app-column-chart',
   standalone: true,
-  imports: [ChartModule, DropdownModule, FormsModule],
+  imports: [ChartModule, DropdownModule, FormsModule, ProgressSpinnerModule],
   providers: [DatePipe],
   templateUrl: './column-chart.component.html',
   styleUrl: './column-chart.component.scss',
@@ -94,6 +95,11 @@ export class ColumnChartComponent {
   rsOrg: any;
   dataConvert: any;
   isOnInit = false;
+
+  isShowYAxis = true;
+  isRenderYAxis = false;
+
+  isLoading = true;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private cdref: ChangeDetectorRef,
@@ -131,15 +137,22 @@ export class ColumnChartComponent {
   }
 
   updateImageYAxis() {
+    this.isShowYAxis = window?.innerWidth >= 465;
     setTimeout(() => {
       // console.log('window.innerWidth', window.innerWidth);
       const heightColumnChartTemp =
         this.document?.getElementById('column-chart')?.offsetHeight ?? 0;
       this.moodList.forEach((x, index) => {
-        // x['top'] = ((heightColumnChartTemp - 30) / 5) * index - 10;
-        x['top'] = ((heightColumnChartTemp - 45) / 5) * index - 10;
+        x['top'] = ((heightColumnChartTemp - 58) / 5) * index + 20;
+        // if (window.innerWidth < 465) {
+        //   x['top'] = ((heightColumnChartTemp - 70) / 5) * index + 22;
+        // }
       });
     });
+
+    setTimeout(() => {
+      this.isRenderYAxis = true;
+    }, 1000);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -223,6 +236,7 @@ export class ColumnChartComponent {
     setTimeout(() => {
       this.loadingTimeList = false;
       this.selectedTime = this.timeList?.[0];
+      this.isLoading = false;
     }, 700);
 
     const moodList$ = this.moodService.moodList$.subscribe((rs) => {
@@ -237,13 +251,25 @@ export class ColumnChartComponent {
   }
 
   loadChart() {
+    // const documentStyle = getComputedStyle(this?.document?.documentElement);
     this.basicData = {
       labels: this.dataConvert?.map((x: any) => {
         return this.datePipe.transform(x?.date, 'dd.MMM');
       }),
       datasets: [
         {
-          label: 'Mood',
+          type: 'line',
+          label: 'Prediction',
+          borderColor: '#4a7e79',
+          borderWidth: 2,
+          fill: false,
+          // tension: 0.4,
+          data: [1, 2, 3, 4, 5, 6, 7]?.map(
+            (x) => Math.floor(Math.random() * 5) + 1
+          ),
+        },
+        {
+          label: 'Reality',
           data: this.dataConvert?.map((x: any) => {
             return MOOD_STATUS[x?.status?.key]?.value ?? 0;
           }),
@@ -301,9 +327,41 @@ export class ColumnChartComponent {
         legend: {
           labels: {
             // color: textColor,
+            boxWidth: 20,
+            padding: 10,
           },
-          display: false,
+          // display: false,
         },
+
+        // legend: {
+        //   display: true,
+        //   position: 'top',
+        //   labels: {
+        //     generateLabels: (chart: any) => {
+        //       const datasetColors = ['#42A5F5', '#66BB6A'];
+        //       console.log('chart.data.datasets', chart.data.datasets);
+        //       return chart.data.datasets.map((dataset: any, i: any) => ({
+        //         text: dataset.label,
+        //         fillStyle: i === 0 ? dataset?.borderColor : 'transparent',
+        //         hidden: !chart.isDatasetVisible(i),
+        //         index: i,
+        //       }));
+        //     },
+        //     font: {
+        //       size: 12,
+        //       family: 'Arial',
+        //     },
+        //     // boxWidth: 20,
+        //     // padding: 10,
+        //   },
+        //   onClick: (e: any, legendItem: any, legend: any) => {
+        //     const index = legendItem.index;
+        //     const ci = legend.chart;
+        //     ci.toggleDataVisibility(index);
+        //     ci.update();
+        //   },
+        // },
+
         tooltip: {
           callbacks: {
             label: (tooltipItem: any) => {

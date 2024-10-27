@@ -7,6 +7,10 @@
     margin-right: 1.5rem;
 }
 
+.no-margin-left { 
+    margin-left: 0 !important;
+}
+
 @media screen and (max-width: 550px)  {
     .yAxis-label-image {
         width: 20px;

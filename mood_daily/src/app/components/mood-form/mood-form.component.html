@@ -92,5 +92,5 @@
 
 <div class="flex justify-content-end gap-2 mt-4">
   <p-button label="Cancel" severity="secondary" (onClick)="onClose()" />
-  <p-button label="Save" (onClick)="onSubmit()" />
+  <p-button label="Save" (onClick)="onSubmit()" [loading]="isLoading" />
 </div>

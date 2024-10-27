@@ -13,20 +13,65 @@
     </div>
   </div>
 
-  <div class="chart-container" #columnChartTemp style="position: relative">
+  <div
+    class="chart-container"
+    #columnChartTemp
+    style="position: relative"
+    [class.no-margin-left]="!isShowYAxis"
+  >
+    @if (isLoading) {
+    <div
+      class="flex justify-content-center align-items-center"
+      style="
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      "
+    >
+      <p-progressSpinner
+        styleClass="w-3rem h-3rem"
+        strokeWidth="4"
+        animationDuration="2s"
+      />
+    </div>
+    }
     <p-chart
       id="column-chart"
       type="bar"
       [data]="basicData"
       [options]="basicOptions"
+      [class.opacity-0]="isLoading"
     />
-    @for (item of moodList; track item; let idx = $index) {
+    @if (isShowYAxis && isRenderYAxis) { @for (item of moodList; track item; let
+    idx = $index) {
     <img
       class="yAxis-label-image"
       style="position: absolute; left: -25px"
       [style.top]="(item?.top ?? 0) + 'px'"
       [src]="item?.url"
+      [class.opacity-0]="isLoading"
     />
+    } }
+  </div>
+  @if (!isShowYAxis) {
+  <div
+    class="flex flex-wrap gap-3 justify-content-center align-items-center"
+    [class.opacity-0]="isLoading"
+  >
+    @for (item of moodList; track item) {
+    <div class="flex gap-1">
+      <div>
+        <span
+          class="shadow-2"
+          style="padding: 0px 8px; border: 16px"
+          [style.background-color]="item?.color"
+        ></span>
+      </div>
+
+      <div>{{ item?.nameCase }}</div>
+    </div>
     }
   </div>
+  }
 </div>
