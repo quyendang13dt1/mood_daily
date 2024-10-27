@@ -8,6 +8,8 @@ import { Sidebar } from 'primeng/sidebar';
 import { HeaderComponent } from '../header/header.component';
 import { AuthService } from '../../service/auth.service';
 import { Subscription } from 'rxjs';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-menu',
   standalone: true,
@@ -18,7 +20,9 @@ import { Subscription } from 'rxjs';
     AvatarModule,
     StyleClassModule,
     HeaderComponent,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss',
 })
@@ -26,7 +30,10 @@ export class MenuComponent implements OnInit {
   @ViewChild('sidebarRef') sidebarRef!: Sidebar;
   subscription = new Subscription();
   userData: any;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
   ngOnInit() {
     // this.authService
     this.userData = this.authService.userValue;
@@ -37,4 +44,12 @@ export class MenuComponent implements OnInit {
   }
 
   sidebarVisible: boolean = false;
+
+  onCommingSoon() {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warn',
+      detail: 'Comming Soon!',
+    });
+  }
 }

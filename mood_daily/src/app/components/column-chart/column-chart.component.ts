@@ -15,6 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MoodService } from '../../service/mood.service';
+import { Utility } from '../../utility/utility.service';
 
 Chart.register({
   id: 'customYAxisIcons',
@@ -60,6 +61,11 @@ Chart.register({
   },
 });
 
+export enum Time {
+  WEEK = 'This Week',
+  MONTH = 'This Month',
+}
+
 @Component({
   selector: 'app-column-chart',
   standalone: true,
@@ -77,14 +83,17 @@ export class ColumnChartComponent {
   moodList: any[] = Object.values(MOOD_STATUS);
 
   timeList = [
-    { name: 'Last Week', code: 'Last Week' },
+    // { name: 'Last Week', code: 'Last Week' },
     { name: 'This Week', code: 'This Week' },
     { name: 'This Month', code: 'This Month' },
-    { name: 'This Year', code: 'This Year' },
+    // { name: 'This Year', code: 'This Year' },
   ];
   loadingTimeList = true;
-  selectedTime: any;
+  selectedTime = this.timeList[0];
   subscription = new Subscription();
+  rsOrg: any;
+  dataConvert: any;
+  isOnInit = false;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private cdref: ChangeDetectorRef,
@@ -126,7 +135,7 @@ export class ColumnChartComponent {
       const heightColumnChartTemp =
         this.document.getElementById('column-chart')?.offsetHeight ?? 0;
       this.moodList.forEach((x, index) => {
-        x['top'] = ((heightColumnChartTemp - 40) / 5) * index;
+        x['top'] = ((heightColumnChartTemp - 30) / 5) * index - 10;
       });
     });
   }
@@ -134,6 +143,78 @@ export class ColumnChartComponent {
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.loadChart();
+    // this.updateImageYAxis();
+  }
+
+  onChangeTime(): any {
+    switch (this.selectedTime?.code) {
+      case Time.WEEK: {
+        this.dataConvert = this.getDatesInWeek().map((date) => {
+          return {
+            date: date,
+            status: this.findStatusByDate(this.rsOrg, date),
+          };
+        });
+        break;
+      }
+      case Time.MONTH: {
+        this.dataConvert = this.getDatesInMonth().map((date) => {
+          return {
+            date: date,
+            status: this.findStatusByDate(this.rsOrg, date),
+          };
+        });
+        console.log('this.dataConvert', this.dataConvert);
+        break;
+      }
+    }
+    this.loadChart();
+  }
+
+  // Find data
+  getStartOfWeek(date: Date): Date {
+    const day = date.getDay(); // 0: Chủ Nhật, 1: Thứ Hai, ..., 6: Thứ Bảy
+    const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Điều chỉnh cho Thứ Hai
+    const startOfWeek = new Date(date.setDate(diff));
+    startOfWeek.setHours(0, 0, 0, 0); // Đặt giờ về 00:00:00
+    return startOfWeek;
+  }
+
+  // Get Date in week
+  getDatesInWeek(): Date[] {
+    const startOfWeek = this.getStartOfWeek(new Date());
+    return Array.from({ length: 7 }, (_, i) => {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+      return date;
+    });
+  }
+
+  findStatusByDate(data: any[], targetDate: Date): any {
+    const foundItem = data.find((item) => {
+      const itemDate = new Date(item.createdTime);
+      return (
+        itemDate.getFullYear() === targetDate.getFullYear() &&
+        itemDate.getMonth() === targetDate.getMonth() &&
+        itemDate.getDate() === targetDate.getDate()
+      );
+    });
+    return foundItem ? foundItem.status : null;
+  }
+
+  // Get Date in month
+  getDatesInMonth(): Date[] {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth();
+
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    return Array.from({ length: daysInMonth }, (_, i) => {
+      const date = new Date(year, month, i + 1);
+      date.setHours(0, 0, 0, 0);
+      return date;
+    });
   }
 
   ngOnInit() {
@@ -143,46 +224,8 @@ export class ColumnChartComponent {
     }, 700);
 
     const moodList$ = this.moodService.moodList$.subscribe((rs) => {
-      const data = [...rs]?.reverse();
-      this.basicData = {
-        labels: data?.map((x: any) => {
-          return this.datePipe.transform(x?.createdTime, 'dd.MMM yyyy');
-        }),
-        datasets: [
-          {
-            label: 'Mood',
-            data: data?.map((x: any) => {
-              return MOOD_STATUS[x?.status?.key].value;
-            }),
-            backgroundColor: data?.map((x: any) => {
-              return MOOD_STATUS[x?.status?.key].color;
-            }),
-            borderColor: data?.map((x: any) => {
-              return MOOD_STATUS[x?.status?.key].color;
-            }),
-            // backgroundColor: [
-            //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-            // ],
-            // borderColor: [
-            //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-            //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-            // ],
-            borderWidth: 1,
-          },
-        ],
-      };
-      this.loadChart();
+      this.rsOrg = rs;
+      this.onChangeTime();
     });
     this.subscription.add(moodList$);
   }
@@ -192,49 +235,45 @@ export class ColumnChartComponent {
   }
 
   loadChart() {
-    // const documentStyle = getComputedStyle(this.document.documentElement);
-    // const textColor = documentStyle.getPropertyValue('--text-color');
-    // const textColorSecondary = documentStyle.getPropertyValue(
-    //   '--text-color-secondary'
-    // );
-    // const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+    this.basicData = {
+      labels: this.dataConvert?.map((x: any) => {
+        return this.datePipe.transform(x?.date, 'dd.MMM');
+      }),
+      datasets: [
+        {
+          label: 'Mood',
+          data: this.dataConvert?.map((x: any) => {
+            return MOOD_STATUS[x?.status?.key]?.value ?? 0;
+          }),
+          backgroundColor: this.dataConvert?.map((x: any) => {
+            return MOOD_STATUS[x?.status?.key]?.color;
+          }),
+          borderColor: this.dataConvert?.map((x: any) => {
+            return MOOD_STATUS[x?.status?.key]?.color;
+          }),
+          // backgroundColor: [
+          //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+          // ],
+          // borderColor: [
+          //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
+          //   MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
+          // ],
+          borderWidth: 1,
+        },
+      ],
+    };
 
-    // this.basicData = {
-    //   labels: [
-    //     '24.Oct 2024',
-    //     '25.Oct 2024',
-    //     '26.Oct 2024',
-    //     '27.Oct 2024',
-    //     '28.Oct 2024',
-    //     '29.Oct 2024',
-    //     '30.Oct 2024',
-    //   ],
-    //   datasets: [
-    //     {
-    //       label: 'Mood',
-    //       data: [3, 4, 2, 5, 1, 2, 3, 4],
-    //       backgroundColor: [
-    //         MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-    //       ],
-    //       borderColor: [
-    //         MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.ANXIOUS].color,
-    //         MOOD_STATUS[MOOD_STATUS_KEY.EXCITED].color,
-    //       ],
-    //       borderWidth: 1,
-    //     },
-    //   ],
-    // };
     let delayed: any;
     this.basicOptions = {
       animation: {
@@ -242,6 +281,9 @@ export class ColumnChartComponent {
           delayed = true;
         },
         delay: (context: any) => {
+          if (this.isOnInit) {
+            return 0;
+          }
           let delay = 0;
           if (
             context.type === 'data' &&
@@ -282,6 +324,7 @@ export class ColumnChartComponent {
         y: {
           beginAtZero: true,
           ticks: {
+            display: false,
             // color: textColorSecondary,
             stepSize: 1,
             callback: (value: any) => {
@@ -318,7 +361,9 @@ export class ColumnChartComponent {
         },
       },
     };
-
+    setTimeout(() => {
+      this.isOnInit = true;
+    });
     this.updateImageYAxis();
   }
 }

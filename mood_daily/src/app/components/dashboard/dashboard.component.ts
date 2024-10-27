@@ -14,6 +14,11 @@ import { MoodFormComponent } from '../mood-form/mood-form.component';
 import { HistoryComponent } from '../history/history.component';
 import { ColumnChartComponent } from '../column-chart/column-chart.component';
 import { HalfDoughnutComponent } from '../half-doughnut/half-doughnut.component';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { MoodService } from '../../service/mood.service';
+import { Subscription } from 'rxjs';
+import { Utility } from '../../utility/utility.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -31,19 +36,36 @@ import { HalfDoughnutComponent } from '../half-doughnut/half-doughnut.component'
     HistoryComponent,
     ColumnChartComponent,
     HalfDoughnutComponent,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent implements OnInit {
   sidebarVisible: boolean = false;
   visibleMoodPopup: boolean = false;
-  constructor(private themeService: ThemeService) {}
+  history: any[] = [];
+  subscription = new Subscription();
+  constructor(
+    private themeService: ThemeService,
+    private messageService: MessageService,
+    private moodService: MoodService
+  ) {}
   ngOnInit(): void {
     // AOS.init({
     //   duration: 1500, // values from 0 to 3000, with step 50ms
     // });
     // AOS.init();
+
+    const moodList$ = this.moodService.moodList$.subscribe((rs) => {
+      this.history = rs;
+    });
+    this.subscription.add(moodList$);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onUpdateTheme(theme: string) {
@@ -51,6 +73,16 @@ export class DashboardComponent implements OnInit {
   }
 
   showDialog() {
+    // const today = this.history?.find((x) => Utility.isToday(x?.createdTime));
+    // if (today) {
+    //   this.messageService.add({
+    //     severity: 'warn',
+    //     summary: 'Warn',
+    //     detail: 'You have updated your mood today!',
+    //   });
+    //   return;
+    // }
+
     this.visibleMoodPopup = true;
   }
 

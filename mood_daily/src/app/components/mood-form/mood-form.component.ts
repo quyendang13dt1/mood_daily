@@ -93,7 +93,7 @@ export class MoodFormComponent {
       desc: this.moodeDesc,
       createdTime: new Date()?.getTime(),
     });
-
+    this.resetForm();
     this.close.emit(true);
   }
 
