@@ -63,8 +63,34 @@
   }
 }
 
-// @media screen and (max-width: 1000px) { 
-//   .form {
-//       min-width: auto !important;
-//     }
-// }
+.pie-chart {
+  .chart {
+    height: 350px; width: 350px
+  }
+  .info {
+    width: calc(100% - 364px)
+  }
+}
+
+
+@media screen and (min-width: 1200px) and (max-width: 1400px) {
+  .pie-chart {
+    .chart {
+      width: 100% !important;
+    }
+    .info {
+      width: 100% !important;
+    }
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 900px) {
+  .pie-chart {
+    .chart {
+      width: 100% !important;
+    }
+    .info {
+      width: 100% !important;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.yAxis-label-image {
+    width: 25px;
+}
+
+.chart-container {
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
+
+@media screen and (max-width: 550px)  {
+    .yAxis-label-image {
+        width: 20px;
+    }
+}
+
+@media screen and (max-width: 500px)  {
+    .yAxis-label-image {
+        width: 15px;
+    }
+
+    .chart-container {
+        margin-left: 0.5rem;
+        margin-right: 0;
+    }
+}

@@ -5,50 +5,71 @@
 @import "primeng/resources/primeng.min.css";
 @import "primeng/resources/primeng.css";
 
-
 html {
-    font-size: 14px;
+  font-size: 14px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgb(219, 219, 219);
+    // border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    // background: var(--primary-color);
+    background: #cecece;
+    // border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #cecece;
+    // background: var(--primary-color);
+  }
 }
 
 body {
-    font-family: var(--font-family);
-    font-weight: normal;
-    background: var(--surface-ground);
-    color: var(--text-color);
-    padding: 1rem;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    margin: 0;
-    padding: 0;
+  font-family: var(--font-family);
+  font-weight: normal;
+  background: var(--surface-ground);
+  color: var(--text-color);
+  padding: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
 }
 
 .card {
-    background: var(--surface-card);
-    padding: 2rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
 }
 
 .p-error {
-    color: #f12f2f;
+  color: #f12f2f;
 }
 
-.error-border { 
-    border: 1px solid #f12f2f;
+.error-border {
+  border: 1px solid #f12f2f;
 }
 
 [class*="col-"] {
-    padding: 1rem !important;
+  padding: 1rem !important;
 }
 
 @media screen and (min-width: 1200px) {
-    [class*="xl\\:col-"] {
-        padding: 1rem !important;
-    }
+  [class*="xl\\:col-"] {
+    padding: 1rem !important;
+  }
 }
-    
-    
+
 // import to angular.json
 // "./node_modules/ng-zorro-antd/src/ng-zorro-antd.min.css",
 // "./node_modules/ng-zorro-antd/ng-zorro-antd.min.css",
-

@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div class="mx-4" #columnChartTemp style="position: relative">
+  <div class="chart-container" #columnChartTemp style="position: relative">
     <p-chart
       id="column-chart"
       type="bar"
@@ -22,9 +22,9 @@
     />
     @for (item of moodList; track item; let idx = $index) {
     <img
+      class="yAxis-label-image"
       style="position: absolute; left: -25px"
       [style.top]="(item?.top ?? 0) + 'px'"
-      width="25px"
       [src]="item?.url"
     />
     }

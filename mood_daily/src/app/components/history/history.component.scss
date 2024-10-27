@@ -4,3 +4,9 @@
 .item-history:hover {
     transform: scale(1.05);
 }
+
+@media screen and (max-width: 1200px) {
+    .item-history:hover {
+        transform: scale(1.02);
+    }
+}

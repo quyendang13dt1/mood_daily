@@ -1,3 +1,8 @@
+<!-- <div class="grid-container">
+  <div class="col-12 xl:col-8 content-1">Nội dung cột 8</div>
+  <div class="col-12 xl:col-4 content-2">Nội dung cột 4</div>
+</div> -->
+
 <div class="layout-content-wrapper">
   <div class="flex flex-column p-3">
     <div class="card shadow-2 col-12 p-3 mt-2">
@@ -50,7 +55,7 @@
           enterClass="fadeinleft"
           leaveClass="fadeoutleft"
         >
-          <div>
+          <div id="chart-column-and-pipe">
             <div
               pAnimateOnScroll
               enterClass="fadeinleft"
@@ -70,9 +75,12 @@
             </div>
           </div>
         </div>
-        <div class="col-12 xl:col-4">
+        <div
+          class="col-12 xl:col-4"
+          style="padding-left: 0 !important; padding-right: 0 !important"
+        >
           <div class="flex flex-column gap-3">
-            <div class="flex justify-content-between align-items-center">
+            <div class="flex justify-content-between align-items-center px-3">
               <div class="text-xl font-bold">History Mood Daily</div>
               <div>
                 <p-button

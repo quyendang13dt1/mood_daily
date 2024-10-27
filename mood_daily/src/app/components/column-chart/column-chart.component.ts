@@ -132,10 +132,12 @@ export class ColumnChartComponent {
 
   updateImageYAxis() {
     setTimeout(() => {
+      // console.log('window.innerWidth', window.innerWidth);
       const heightColumnChartTemp =
-        this.document.getElementById('column-chart')?.offsetHeight ?? 0;
+        this.document?.getElementById('column-chart')?.offsetHeight ?? 0;
       this.moodList.forEach((x, index) => {
-        x['top'] = ((heightColumnChartTemp - 30) / 5) * index - 10;
+        // x['top'] = ((heightColumnChartTemp - 30) / 5) * index - 10;
+        x['top'] = ((heightColumnChartTemp - 45) / 5) * index - 10;
       });
     });
   }
