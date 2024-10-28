@@ -73,15 +73,15 @@ export class DashboardComponent implements OnInit {
   }
 
   showDialog() {
-    // const today = this.history?.find((x) => Utility.isToday(x?.createdTime));
-    // if (today) {
-    //   this.messageService.add({
-    //     severity: 'warn',
-    //     summary: 'Warn',
-    //     detail: 'You have updated your mood today!',
-    //   });
-    //   return;
-    // }
+    const today = this.history?.find((x) => Utility.isToday(x?.createdTime));
+    if (today) {
+      this.messageService.add({
+        severity: 'warn',
+        summary: 'Warn',
+        detail: 'You have updated your mood today!',
+      });
+      return;
+    }
 
     this.visibleMoodPopup = true;
   }

@@ -187,7 +187,7 @@ export class MoodService {
     const currentTime = Date.now();
     return data.map((item, index) => ({
       ...item,
-      createdTime: currentTime - index * 24 * 60 * 60 * 1000,
+      createdTime: currentTime - (index + 1) * 24 * 60 * 60 * 1000,
     }));
   }
 

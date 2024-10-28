@@ -100,6 +100,9 @@ export class ColumnChartComponent {
   isRenderYAxis = false;
 
   isLoading = true;
+
+  linesFakeWeek: number[] = [];
+  linesMonths: number[] = [];
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private cdref: ChangeDetectorRef,
@@ -233,6 +236,9 @@ export class ColumnChartComponent {
   }
 
   ngOnInit() {
+    this.linesFakeWeek = Utility.generateWeeklyData();
+
+    this.linesMonths = Utility.generateMonthlyData();
     setTimeout(() => {
       this.loadingTimeList = false;
       this.selectedTime = this.timeList?.[0];
@@ -264,9 +270,13 @@ export class ColumnChartComponent {
           borderWidth: 2,
           fill: false,
           // tension: 0.4,
-          data: [1, 2, 3, 4, 5, 6, 7]?.map(
-            (x) => Math.floor(Math.random() * 5) + 1
-          ),
+          data:
+            this.selectedTime?.code === Time.WEEK
+              ? this.linesFakeWeek
+              : this.linesMonths,
+          // [1, 2, 3, 4, 5, 6, 7]?.map(
+          //   (x) => Math.floor(Math.random() * 5) + 1
+          // ),
         },
         {
           label: 'Reality',

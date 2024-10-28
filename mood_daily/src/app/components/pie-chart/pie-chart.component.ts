@@ -2,9 +2,11 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   HostListener,
   Inject,
   OnInit,
+  Output,
 } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { debug } from 'console';
@@ -111,6 +113,7 @@ Chart.register(...registerables);
   styleUrl: './pie-chart.component.scss',
 })
 export class PieChartComponent implements OnInit, AfterViewInit {
+  @Output() onCreateMoodEmit = new EventEmitter<any>();
   data: any;
   config: any = {};
   chart: any;
@@ -138,11 +141,21 @@ export class PieChartComponent implements OnInit, AfterViewInit {
       this.statusToday = itemToday ? MOOD_STATUS[itemToday?.status?.key] : null;
 
       this.dailyStatus = TREND_DATA[itemToday?.status?.key]?.daily ?? '';
-      this.weeklyStatus = TREND_DATA[itemToday?.status?.key]?.weekly ?? '';
-      this.ratingLast7Days = Utility.getRateAverageLast7Days(rs);
-      console.log('getItemLast7Days', this.ratingLast7Days);
 
-      this.suggestions = TREND_DATA[itemToday?.status?.key].suggestions;
+      this.ratingLast7Days = Utility.getRateAverageLast7Days(rs);
+      this.weeklyStatus =
+        TREND_DATA[
+          this.moodList?.find((x) => x?.value === this.ratingLast7Days)?.key ??
+            MOOD_STATUS_KEY.EXCITED
+        ]?.weekly ?? '';
+
+      this.suggestions =
+        TREND_DATA[
+          itemToday?.status?.key ??
+            this.moodList?.find((x) => x?.value === this.ratingLast7Days)
+              ?.key ??
+            MOOD_STATUS_KEY.EXCITED
+        ]?.suggestions;
       this.loadChart();
     });
     this.subscription.add(moodList$);
@@ -235,5 +248,9 @@ export class PieChartComponent implements OnInit, AfterViewInit {
       summary: 'Warn',
       detail: 'Comming Soon!',
     });
+  }
+
+  onCrateMood() {
+    this.onCreateMoodEmit.emit(true);
   }
 }

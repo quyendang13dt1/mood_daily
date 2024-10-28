@@ -11,6 +11,7 @@
         chart
       }}</canvas>
 
+      @if (statusToday) {
       <div
         id="rotateBox"
         class="needle {{ 'rotate-box-' + statusToday?.value }}"
@@ -30,9 +31,6 @@
           border-top: 15px solid red;
         "
       ></div>
-      <!-- [style.transform]="
-    'rotate(' + (202 + 36 * (statusToday?.value - 1)) + 'deg)'
-  " -->
       <div
         style="
           position: absolute;
@@ -46,6 +44,8 @@
           border-radius: 50%;
         "
       ></div>
+      }
+
       <div
         class="flex flex-wrap gap-3 justify-content-center align-items-center"
         style="position: absolute; bottom: 0px; width: 100%"
@@ -88,7 +88,18 @@
                 style="padding: 0px 8px; margin-right: 8px; border: 16px"
                 [style.background-color]="statusToday?.color"
               ></span>
-              {{ dailyStatus }} 🌱
+              @if (dailyStatus) {
+              {{ dailyStatus }} 🌱 } @else {
+              <span>
+                You haven't updated your mood today, update it
+                <span
+                  (click)="onCrateMood()"
+                  style="color: var(--primary-color)"
+                  class="cursor-pointer"
+                  >here</span
+                >
+              </span>
+              }
             </p>
           </div>
         </div>

@@ -80,6 +80,7 @@ export class MoodFormComponent {
 
   constructor(private moodService: MoodService) {}
   onClose() {
+    this.resetForm();
     this.close.emit(true);
   }
 
@@ -91,7 +92,6 @@ export class MoodFormComponent {
     this.isLoading = true;
     setTimeout(() => {
       this.isLoading = false;
-
       this.moodService.addMoodDaily({
         status: this.moodStatus,
         title: this.moodTitle,
@@ -104,6 +104,7 @@ export class MoodFormComponent {
   }
 
   resetForm() {
+    this.isSubmit = false;
     this.moodStatus = '';
     this.moodTitle = '';
     this.moodeDesc = '';

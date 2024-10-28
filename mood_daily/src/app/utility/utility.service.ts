@@ -56,4 +56,38 @@ export class Utility {
     const sum = dataConvert.reduce((acc: any, val: any) => acc + val, 0);
     return Math.ceil(sum / dataConvert.length);
   }
+
+  // Fake data for lines on weekdays
+  static generateWeeklyData(): number[] {
+    const data: number[] = [];
+
+    // Loop through 7 days of the week
+    for (let i = 0; i < 7; i++) {
+      // Generate a random number between 1 and 5 (inclusive)
+      const value = Math.floor(Math.random() * 5) + 1;
+      data.push(value);
+    }
+
+    return data;
+  }
+
+  static generateMonthlyData(): number[] {
+    const data: number[] = [];
+
+    for (let i = 0; i < Utility.getDaysInCurrentMonth(); i++) {
+      const value = Math.floor(Math.random() * 5) + 1; // Giá trị ngẫu nhiên từ 1 đến 5
+      data.push(value);
+    }
+
+    return data;
+  }
+
+  static getDaysInCurrentMonth(): number {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = now.getMonth();
+
+    const lastDayOfMonth = new Date(year, month + 1, 0);
+    return lastDayOfMonth.getDate();
+  }
 }
