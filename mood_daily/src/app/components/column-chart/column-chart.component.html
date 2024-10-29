@@ -36,13 +36,19 @@
       />
     </div>
     }
-    <p-chart
-      id="column-chart"
-      type="bar"
-      [data]="basicData"
-      [options]="basicOptions"
-      [class.opacity-0]="isLoading"
-    />
+    <div>
+      <!-- class="column-chart-reponsive" -->
+      <!-- width="{{ !isShowYAxis ? '400px' : 'auto' }}" -->
+      <p-chart
+        height="{{ isShowYAxis ? '400px' : '250px' }}"
+        id="column-chart"
+        type="bar"
+        [data]="basicData"
+        [options]="basicOptions"
+        [class.opacity-0]="isLoading"
+      />
+    </div>
+
     @if (isShowYAxis && isRenderYAxis) { @for (item of moodList; track item; let
     idx = $index) {
     <img
@@ -54,7 +60,7 @@
     />
     } }
   </div>
-  @if (!isShowYAxis) {
+  @if (!isShowYAxis && isRenderYAxis) {
   <div
     class="flex flex-wrap gap-3 justify-content-center align-items-center"
     [class.opacity-0]="isLoading"

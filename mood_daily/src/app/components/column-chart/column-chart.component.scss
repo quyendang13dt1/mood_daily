@@ -11,6 +11,17 @@
     margin-left: 0 !important;
 }
 
+
+@media screen and (max-width: 600px)  {
+    .column-chart-reponsive {
+        overflow-x: scroll;
+        .chart-width  {
+                width: 500px !important;
+        }
+    }
+}
+
+
 @media screen and (max-width: 550px)  {
     .yAxis-label-image {
         width: 20px;

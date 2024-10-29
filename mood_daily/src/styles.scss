@@ -52,6 +52,10 @@ body {
   margin-bottom: 1rem;
 }
 
+.p-inputtext.ng-dirty.ng-invalid {
+  border-color: #f12f2f;
+}
+
 .p-error {
   color: #f12f2f;
 }
