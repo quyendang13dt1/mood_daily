@@ -55,8 +55,8 @@ Chart.register({
       const img = new Image();
       img.src = iconSrc;
       img.onload = () => {
-        var yIndex = yScale.getPixelForTick(index);
-        ctx.drawImage(img, x, yIndex - 10, 20, 20); // Vẽ icon tại đúng vị trí
+        // var yIndex = yScale.getPixelForTick(index);
+        // ctx.drawImage(img, x + 15, yIndex - 10, 20, 20); // Vẽ icon tại đúng vị trí
       };
     });
   },
@@ -66,6 +66,8 @@ export enum Time {
   WEEK = 'This Week',
   MONTH = 'This Month',
 }
+
+export const SIZE_SCREEN_ROATE_CHART = 600;
 
 @Component({
   selector: 'app-column-chart',
@@ -140,28 +142,33 @@ export class ColumnChartComponent {
   }
 
   updateImageYAxis() {
-    this.isShowYAxis = window?.innerWidth >= 465;
+    this.isShowYAxis = window?.innerWidth >= SIZE_SCREEN_ROATE_CHART;
     setTimeout(() => {
       // console.log('window.innerWidth', window.innerWidth);
       const heightColumnChartTemp =
         this.document?.getElementById('column-chart')?.offsetHeight ?? 0;
-      this.moodList.forEach((x, index) => {
-        x['top'] = ((heightColumnChartTemp - 58) / 5) * index + 20;
+      this.moodList = [...this.moodList].map((x, index) => {
+        if (this.isShowYAxis) {
+          x['top'] = ((heightColumnChartTemp - 58) / 5) * index + 20;
+        }
+        return x;
         // if (window.innerWidth < 465) {
         //   x['top'] = ((heightColumnChartTemp - 70) / 5) * index + 22;
         // }
       });
+      setTimeout(() => {
+        this.isRenderYAxis = true;
+      });
     });
-
-    setTimeout(() => {
-      this.isRenderYAxis = true;
-    }, 1000);
   }
 
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.loadChart();
-    // this.updateImageYAxis();
+    this.updateImageYAxis();
+
+    // const canvas = document.getElementById('column-chart') as HTMLCanvasElement;
+    // canvas.width = 500;
   }
 
   onChangeTime(): any {
@@ -182,7 +189,6 @@ export class ColumnChartComponent {
             status: this.findStatusByDate(this.rsOrg, date),
           };
         });
-        console.log('this.dataConvert', this.dataConvert);
         break;
       }
     }
@@ -257,6 +263,7 @@ export class ColumnChartComponent {
   }
 
   loadChart() {
+    this.isRenderYAxis = false;
     // const documentStyle = getComputedStyle(this?.document?.documentElement);
     this.basicData = {
       labels: this.dataConvert?.map((x: any) => {
@@ -267,9 +274,11 @@ export class ColumnChartComponent {
           type: 'line',
           label: 'Prediction',
           borderColor: '#4a7e79',
-          borderWidth: 2,
+          borderWidth: 1,
           fill: false,
           // tension: 0.4,
+          pointRadius: 1, // Kích thước điểm nhỏ hơn
+          pointHoverRadius: 4, // Kích thước khi di chuột vào
           data:
             this.selectedTime?.code === Time.WEEK
               ? this.linesFakeWeek
@@ -289,6 +298,7 @@ export class ColumnChartComponent {
           borderColor: this.dataConvert?.map((x: any) => {
             return MOOD_STATUS[x?.status?.key]?.color;
           }),
+          barThickness: this.getBarThickness(),
           // backgroundColor: [
           //   MOOD_STATUS[MOOD_STATUS_KEY.NEUTRAL].color,
           //   MOOD_STATUS[MOOD_STATUS_KEY.HAPPPY].color,
@@ -389,30 +399,29 @@ export class ColumnChartComponent {
           },
         },
       },
-
       scales: {
         y: {
           beginAtZero: true,
           ticks: {
-            display: false,
+            display: this.isRoatChart() ? true : false,
             // color: textColorSecondary,
-            stepSize: 1,
-            callback: (value: any) => {
-              switch (value) {
-                case 1:
-                  return '';
-                case 2:
-                  return '';
-                case 3:
-                  return '';
-                case 4:
-                  return '';
-                case 5:
-                  return '';
-                default:
-                  return '';
-              }
-            },
+            stepSize: this.isRoatChart() ? null : 1,
+            // callback: (value: any) => {
+            //   switch (value) {
+            //     case 1:
+            //       return '';
+            //     case 2:
+            //       return '';
+            //     case 3:
+            //       return '';
+            //     case 4:
+            //       return '';
+            //     case 5:
+            //       return '';
+            //     default:
+            //       return '';
+            //   }
+            // },
           },
           grid: {
             // color: surfaceBorder,
@@ -422,6 +431,7 @@ export class ColumnChartComponent {
         x: {
           ticks: {
             // color: textColorSecondary,
+            display: this.isRoatChart() ? false : true,
           },
           grid: {
             // color: surfaceBorder,
@@ -430,10 +440,53 @@ export class ColumnChartComponent {
           },
         },
       },
+      indexAxis: this.isRoatChart() ? 'y' : 'x',
+
+      // maintainAspectRatio: false,
+      // datasets: {
+      //   bar: {
+      //     barThickness: 40, // Đặt chiều rộng cố định cho mỗi cột
+      //     maxBarThickness: 50, // Chiều rộng tối đa của cột
+      //     minBarLength: 10, // Đảm bảo cột ngắn nhất vẫn nhìn thấy được
+      //   },
+      // },
     };
     setTimeout(() => {
       this.isOnInit = true;
     });
     this.updateImageYAxis();
+  }
+
+  isRoatChart() {
+    return false;
+    // return window.innerWidth < SIZE_SCREEN_ROATE_CHART;
+  }
+
+  getBarThickness(): any {
+    if (window?.innerWidth >= SIZE_SCREEN_ROATE_CHART) {
+      switch (this.selectedTime?.code) {
+        case Time.WEEK: {
+          return 35;
+        }
+        case Time.MONTH: {
+          return 15;
+        }
+        default: {
+          return 15;
+        }
+      }
+    }
+
+    switch (this.selectedTime?.code) {
+      case Time.WEEK: {
+        return 10;
+      }
+      case Time.MONTH: {
+        return 4;
+      }
+      default: {
+        return 5;
+      }
+    }
   }
 }

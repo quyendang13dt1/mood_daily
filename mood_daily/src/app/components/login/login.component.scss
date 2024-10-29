@@ -31,7 +31,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("https://image.slidesdocs.com/responsive-images/background/cute-cartoon-celebrating-world-smile-day-powerpoint-background_82c11c51c4__960_540.jpg");
+    background-image: url("/assets/background/login_bg.avif");
     background-color: #cccccc;
     background-position: center;
     background-repeat: no-repeat;
@@ -42,8 +42,21 @@
   }
 }
 
-@media screen and (max-width: 500px) { 
-    .form {
-        min-width: auto !important;
-      }
+@media screen and (max-width: 500px) {
+  .login-form .card-login .form {
+    min-width: auto !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login-form .card-login .form {
+    padding: 10px 20px;
+  }
+}
+
+
+@media screen and (max-width: 300px) {
+  .login-form .card-login .form {
+    padding: 10px 0px;
+  }
 }
