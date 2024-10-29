@@ -47,6 +47,10 @@ export class DashboardComponent implements OnInit {
   visibleMoodPopup: boolean = false;
   history: any[] = [];
   subscription = new Subscription();
+
+  styleMoodPopup: any = {
+    width: '42rem',
+  };
   constructor(
     private themeService: ThemeService,
     private messageService: MessageService,
@@ -83,6 +87,9 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
+    this.styleMoodPopup = {
+      width: window?.innerWidth >= 800 ? '42rem' : '92vw',
+    };
     this.visibleMoodPopup = true;
   }
 

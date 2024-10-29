@@ -1,3 +1,8 @@
+
+.needle {
+  border-right: 130px solid transparent;
+}
+
 .rotate-box-1 {
   animation: rotate1 2s ease-in-out forwards;
 }
@@ -94,3 +99,11 @@
     }
   }
 }
+
+@media screen and (max-width: 600px) {
+  .needle {
+    border-right: 120px solid transparent;
+  }
+}
+
+
