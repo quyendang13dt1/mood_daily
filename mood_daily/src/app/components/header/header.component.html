@@ -24,8 +24,25 @@
 <p-sidebar [(visible)]="visibleConfig" position="right">
   <div class="flex flex-column gap-5">
     <div class="text-3xl font-bold">Themes</div>
+    <div>Light</div>
     <div class="flex flex-wrap gap-4 justify-content-left">
-      @for (item of themesConfigList; track item) {
+      @for (item of themesConfigLightList; track item) {
+      <div
+        class="flex justify-content-center align-items-center mr-2 cursor-pointer"
+        style="width: 28px; height: 28px; border-radius: 50%"
+        [style.background-color]="item?.color"
+        (click)="onChangeThemes(item)"
+      >
+        @if(themeSelected === item?.key) {
+        <i class="pi pi-check" style="font-size: 1rem; color: white"></i>
+        }
+      </div>
+      }
+    </div>
+
+    <div>Dark</div>
+    <div class="flex flex-wrap gap-4 justify-content-left">
+      @for (item of themesConfigDarkList; track item) {
       <div
         class="flex justify-content-center align-items-center mr-2 cursor-pointer"
         style="width: 28px; height: 28px; border-radius: 50%"

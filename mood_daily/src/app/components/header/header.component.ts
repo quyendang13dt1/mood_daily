@@ -36,27 +36,33 @@ export class HeaderComponent implements OnInit {
   selectedCity!: any;
 
   visibleConfig = false;
-  themesConfigList = [
+  themesConfigLightList = [
     {
       key: 'aura-light-green',
       color: '#10b981',
     },
     {
-      key: 'lara-dark-teal',
+      key: 'lara-light-teal',
       color: '#2dd4bf',
     },
     {
-      key: 'luna-pink',
-      color: '#F48FB1',
+      key: 'lara-light-blue',
+      color: '#3B82F6',
     },
     {
-      key: 'md-dark-indigo',
-      color: '#9FA8DA',
+      key: 'lara-light-indigo',
+      color: '#6366F1',
     },
     {
-      key: 'saga-blue',
-      color: '#2196F3',
+      key: 'lara-light-purple',
+      color: '#8B5CF6',
     },
+
+    // Random
+    // {
+    //   key: 'saga-blue',
+    //   color: '#2196F3',
+    // },
     {
       key: 'saga-green',
       color: '#4CAF50',
@@ -68,6 +74,43 @@ export class HeaderComponent implements OnInit {
     {
       key: 'saga-purple',
       color: '#9C27B0',
+    },
+  ];
+
+  themesConfigDarkList = [
+    {
+      key: 'aura-dark-green',
+      color: '#10b981',
+    },
+    {
+      key: 'lara-dark-teal',
+      color: '#2dd4bf',
+    },
+    {
+      key: 'lara-dark-blue',
+      color: '#3B82F6',
+    },
+    {
+      key: 'lara-dark-indigo',
+      color: '#6366F1',
+    },
+    {
+      key: 'lara-dark-purple',
+      color: '#8B5CF6',
+    },
+
+    // Random
+    {
+      key: 'luna-pink',
+      color: '#F48FB1',
+    },
+    {
+      key: 'md-dark-indigo',
+      color: '#9FA8DA',
+    },
+    {
+      key: 'md-dark-deeppurple',
+      color: '#CE93D8',
     },
   ];
 
@@ -114,6 +157,7 @@ export class HeaderComponent implements OnInit {
   }
 
   onChangeThemes(item: any) {
+    console.log('item', item);
     this.themeService.swtichTheme(item?.key);
   }
 }
