@@ -137,7 +137,7 @@ export class HeaderComponent implements OnInit {
         label: 'Config',
         icon: 'pi pi-cog',
         command: () => {
-          this.onConfig();
+          this.visibleConfig = true;
         },
       },
       {

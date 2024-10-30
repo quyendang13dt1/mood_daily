@@ -49,6 +49,14 @@
           </div>
         </div>
       </div> -->
+        <!-- <div class="card shadow-2 mb-0">
+            <div style="width: 100%"> -->
+
+        <!-- </div>
+          </div> -->
+        <div style="width: 100%">
+          <app-statistical></app-statistical>
+        </div>
         <div
           class="col-12 xl:col-8 animation-duration-1000 animation-ease-in-out"
           pAnimateOnScroll
@@ -56,12 +64,7 @@
           leaveClass="fadeoutleft"
         >
           <div id="chart-column-and-pipe">
-            <div
-              pAnimateOnScroll
-              enterClass="fadeinleft"
-              leaveClass="fadeoutleft"
-              class="card shadow-2 animation-duration-1000 animation-ease-in-out"
-            >
+            <div class="card shadow-2" style="margin-bottom: 2rem">
               <div style="width: 100%">
                 <!-- <app-line-chart></app-line-chart> -->
                 <app-column-chart></app-column-chart>
@@ -110,3 +113,19 @@
 </div>
 
 <p-toast />
+
+<div
+  pTooltip="Create mood"
+  tooltipPosition="left"
+  class="shake-button"
+  style="position: fixed; bottom: 15px; right: 15px"
+>
+  @if(!isHasDataToday) {
+  <p-button
+    (onClick)="showDialog()"
+    icon="pi pi-plus"
+    size="large"
+    [rounded]="true"
+  />
+  }
+</div>
