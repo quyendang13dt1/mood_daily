@@ -14,11 +14,13 @@ import { MoodFormComponent } from '../mood-form/mood-form.component';
 import { HistoryComponent } from '../history/history.component';
 import { ColumnChartComponent } from '../column-chart/column-chart.component';
 import { HalfDoughnutComponent } from '../half-doughnut/half-doughnut.component';
-import { MessageService } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MoodService } from '../../service/mood.service';
 import { Subscription } from 'rxjs';
 import { Utility } from '../../utility/utility.service';
+import { StatisticalComponent } from '../statistical/statistical.component';
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -37,6 +39,8 @@ import { Utility } from '../../utility/utility.service';
     ColumnChartComponent,
     HalfDoughnutComponent,
     ToastModule,
+    StatisticalComponent,
+    TooltipModule,
   ],
   providers: [MessageService],
   templateUrl: './dashboard.component.html',
@@ -51,6 +55,20 @@ export class DashboardComponent implements OnInit {
   styleMoodPopup: any = {
     width: '42rem',
   };
+
+  leftTooltipItems: MenuItem[] = [
+    {
+      tooltipOptions: {
+        tooltipLabel: 'Add',
+        tooltipPosition: 'left',
+      },
+      icon: 'pi pi-pencil',
+      command: () => {
+        // Todo
+      },
+    },
+  ];
+  isHasDataToday = false;
   constructor(
     private themeService: ThemeService,
     private messageService: MessageService,
@@ -64,6 +82,9 @@ export class DashboardComponent implements OnInit {
 
     const moodList$ = this.moodService.moodList$.subscribe((rs) => {
       this.history = rs;
+      this.isHasDataToday = this.history?.find((x) =>
+        Utility.isToday(x?.createdTime)
+      );
     });
     this.subscription.add(moodList$);
   }
