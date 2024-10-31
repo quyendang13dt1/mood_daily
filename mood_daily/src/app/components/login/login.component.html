@@ -36,7 +36,13 @@
 <p-toast /> -->
 
 <div class="flex align-items-center justify-content-center h-screen login-form">
-  <p-card subheader="" class="card-login">
+  <p-card
+    pAnimateOnScroll
+    enterClass="fadein"
+    leaveClass="fadeout"
+    subheader=""
+    class="card-login animation-duration-1000 animation-ease-in-out"
+  >
     <div class="form">
       <div class="flex gap-2 justify-content-center align-items-center mb-5">
         <div>

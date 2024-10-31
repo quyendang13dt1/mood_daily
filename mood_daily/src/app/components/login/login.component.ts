@@ -21,6 +21,7 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { AnimateOnScrollModule } from 'primeng/animateonscroll';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -38,6 +39,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     CardModule,
     ButtonModule,
     ProgressSpinnerModule,
+    AnimateOnScrollModule,
   ],
   providers: [MessageService],
   templateUrl: './login.component.html',
