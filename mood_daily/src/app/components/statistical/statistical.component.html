@@ -87,7 +87,12 @@
   <div class="col-12 xl:col-4">C</div> -->
 
   <ng-container *ngFor="let meterItem of value; let index = index">
-    <div class="col-12 md:col-4 xl:col-4">
+    <div
+      pAnimateOnScroll
+      enterClass="flipleft"
+      leaveClass="fadeout"
+      class="col-12 md:col-4 xl:col-4 animation-duration-1000 animation-ease-in-out"
+    >
       <!-- <p-card class="flex-1">
         <div class="flex justify-content-between gap-5">
           <div class="flex flex-column gap-1">
@@ -121,8 +126,10 @@
               [style.background-color]="meterItem?.bgPercent"
               [style.box-shadow]="meterItem?.bgPercentshadow"
             >
-              <i class="{{ meterItem?.icon }} w-2rem"></i
-              ><span class="line-height-2">{{ meterItem?.percent }}%</span>
+              <i style="color: white" class="{{ meterItem?.icon }} w-2rem"></i
+              ><span class="line-height-2" style="color: white"
+                >{{ meterItem?.percent }}%</span
+              >
             </div>
             <div class="line-height-4 text-4xl">{{ meterItem.value }}</div>
           </div>
